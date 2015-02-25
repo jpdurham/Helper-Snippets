@@ -1,10 +1,12 @@
 /* 
  * DESCRIPTION: Adds a sproc to your database that allows you to search for a guid in
  * every table on the database and optionally executes a select on the first
- * returned result.
+ * returned result (by default).
  *
+ * PARAMETERS: @query_text nvarchar(255)
+ *	           @execute_select bit = 1
  * SIDE-EFFECT: This will delete any sproc name [dbo].[SearchForGuidInAllTables]
- *				and replace it with the new implementation below.
+ *              and replace it with the new implementation below.
  *
  * NOTE: There are no other side-effects besides the one mentioned above.
 */

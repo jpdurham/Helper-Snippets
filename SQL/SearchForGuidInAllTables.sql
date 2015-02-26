@@ -80,21 +80,23 @@ BEGIN
         EXECUTE sp_ExecuteSQL @sql;
         FETCH NEXT FROM table_cursor INTO @schema_name, @table_name, @column_name   
     END
+    
     CLOSE table_cursor  
     DEALLOCATE table_cursor 
+    
     SELECT * FROM #results WHERE 0 < row_count ORDER BY row_count DESC;
 	
-	DECLARE @statement nvarchar(max) = (
-		SELECT TOP 1 query 
-		FROM #results 
-		WHERE 0 < row_count 
-		ORDER BY row_count DESC
-	);
-	
-	IF @execute_select = 1
-	BEGIN
-		EXEC sp_executesql @statement;
-	END
+    DECLARE @statement nvarchar(max) = (
+    	SELECT TOP 1 query 
+    	FROM #results 
+    	WHERE 0 < row_count 
+    	ORDER BY row_count DESC
+    );
+    
+    IF @execute_select = 1
+    BEGIN
+    	EXEC sp_executesql @statement;
+    END
 
     DROP TABLE #tables
     DROP TABLE #results
